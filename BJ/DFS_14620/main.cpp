@@ -1,61 +1,70 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
 
 using namespace std;
 
-int num;
+int length;
 int arr[11][11];
-int inside_cnt = 0;
-int m = 0;
-int total_cnt = 0;
+int chk[11][11];
+int amount = 1000000;
 
-void dfs(int x, int y){
-    inside_cnt += arr[x][y];
-    inside_cnt += arr[x-1][y];
-    inside_cnt += arr[x+1][y];
-    inside_cnt += arr[x][y-1];
-    inside_cnt += arr[x][y+1];
+bool check(int x, int y){
+    if(chk[x][y] == 1 || chk[x+1][y] == 1 || chk[x-1][y] == 1 || chk[x][y+1] == 1 || chk[x][y-1] == 1)
+        return false;
+    else
+        return true;
 }
 
-void set_num(int x, int y){
-    arr[x][y] = 200;
-    arr[x-1][y] = 200;
-    arr[x+1][y] = 200;
-    arr[x][y-1] = 200;
-    arr[x][y+1] = 200;
+int getSum(){
+    int sum = 0;
+
+    for(int i=0; i<length; i++){
+        for(int j=0; j<length; j++){
+            if(chk[i][j])
+                sum += arr[i][j];
+        }
+    }
+    amount = min(amount, sum);
 }
 
-int main(){
-    cin >> num;
-    pair<int, pair<int, int>> p[82];
+void dfs(int cnt){
+    if(cnt == 3)
+        return;
 
-    for(int i=0; i<num; i++){
-        for(int j=0; j<num; j++){
+    for(int i=1; i<length-1; i++){
+        for(int j=1; j<length-1; j++){
+            if(check(i,j)){
+                chk[i][j] = 1;
+                chk[i+1][j] = 1;
+                chk[i-1][j] = 1;
+                chk[i][j+1] = 1;
+                chk[i][j-1] = 1;
+
+                dfs(cnt + 1);
+                if(cnt == 2)
+                    getSum();
+
+                chk[i][j] = 0;
+                chk[i+1][j] = 0;
+                chk[i-1][j] = 0;
+                chk[i][j+1] = 0;
+                chk[i][j-1] = 0;
+            }
+        }
+    }
+}
+
+int main(void){
+    cin >> length;
+
+    for(int i=0; i<length; i++){
+        for(int j=0; j<length; j++){
             cin >> arr[i][j];
         }
     }
 
-    for(int z=0; z<3; z++){
-        for(int i=1; i<num-1; i++){
-            for(int j=1; j<num-1; j++){
-                inside_cnt = 0;
-                dfs(i, j);
+    dfs(0);
 
-                p[m++] = make_pair(inside_cnt, make_pair(i, j));
-            }
-        }
-
-        sort(p, p+m);
-
-        total_cnt += p[0].first;
-
-        set_num(p[0].second.first, p[0].second.second);
-
-        m=0;
-    }
-
-    cout << total_cnt << endl;
+    cout << amount << endl;
 
     return 0;
 }
