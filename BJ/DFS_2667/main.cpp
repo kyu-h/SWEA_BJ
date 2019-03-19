@@ -4,31 +4,28 @@
 using namespace std;
 
 int n;
-int capacity = 0;
-int arr[26][26] = {0, };
-int inside = 0;
-int cnt_arr[169] = {0, };
+int arr[26][26];
+int inner_cnt = 0;
+int total = 0;
 
 void dfs(int x, int y){
-    capacity++;
     arr[x][y] = 0;
 
-    if(arr[x][y-1] == 1){ //왼쪽
-        dfs(x, y-1);
-    }
-    if(arr[x][y+1] == 1){ //오른쪽
-        dfs(x, y+1);
-    }
-    if(arr[x-1][y] == 1){ //아래
-        dfs(x-1 ,y);
-    }
-    if(arr[x+1][y] == 1){ //위
+    if(arr[x+1][y] == 1 && x+1 < n)
         dfs(x+1, y);
-    }
+    if(arr[x-1][y] == 1 && x-1 >= 0)
+        dfs(x-1, y);
+    if(arr[x][y+1] == 1 && y+1 < n)
+        dfs(x, y+1);
+    if(arr[x][y-1] == 1 && y-1 >= 0)
+        dfs(x, y-1);
+
+    total++;
 }
 
 int main(void){
     cin >> n;
+    int arr_n[1000];
 
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
@@ -39,21 +36,19 @@ int main(void){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             if(arr[i][j] == 1){
-                capacity = 0;
                 dfs(i, j);
-
-                cnt_arr[inside++] = capacity;
+                arr_n[inner_cnt++] = total;
+                total = 0;
             }
         }
     }
 
-    sort(cnt_arr, cnt_arr + inside);
+    cout << inner_cnt << endl;
 
-    printf("%d\n", inside);
+    sort(arr_n, arr_n + inner_cnt);
 
-    for(int i=0; i<inside; i++){
-        printf("%d\n", cnt_arr[i]);
-    }
+    for(int i=0; i<inner_cnt; i++)
+        cout << arr_n[i] << endl;
 
     return 0;
 }
