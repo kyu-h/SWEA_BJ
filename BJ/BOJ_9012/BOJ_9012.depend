@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1553243657 source:c:\users\kyu\desktop\algo_problems\algo\bj\boj_9012\main.cpp
+	<iostream>
+	<vector>
+	<string.h>
+
