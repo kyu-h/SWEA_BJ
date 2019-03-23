@@ -12,13 +12,13 @@ ETC: 2751, 11650, 11651, 10814, 10825, 10989, 11652, 11004, 10828, 9012, 10799, 
 <hr>
 알고리즘 초보 유형익히기<br>
 https://www.acmicpc.net/step<br>
-<br><br>
+<br>
 난이도 하(SDS 기본반)<br>
 https://www.acmicpc.net/workbook/view/2047<br>
-<br><br>
+<br>
 난이도 중상(SDS 심화반) 참조만<br>
 https://www.acmicpc.net/workbook/view/2048 <br>
-<br><br>
+<br>
 백준 연습해보기<br>
 https://www.acmicpc.net/problem/9663<br>
 https://www.acmicpc.net/problem/2573<br>
