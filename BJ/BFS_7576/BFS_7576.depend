@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1553608382 source:c:\users\kyu\desktop\algo_problems\algo\bj\bfs_7576\main.cpp
+	<iostream>
+	<queue>
+
